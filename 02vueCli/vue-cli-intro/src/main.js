@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import App from './App.vue'
-import Home from './Home.vue'
+import App from './App'
+import Home from './components/Home.vue'
 
 
 Vue.component("lamp-comp", Home)
