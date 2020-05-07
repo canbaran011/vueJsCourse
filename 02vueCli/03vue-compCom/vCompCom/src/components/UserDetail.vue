@@ -5,7 +5,7 @@
     <p>Kullanici Adi : {{ name }} </p>
     <p> Tersten Adi : {{switchName()}} </p>
     <p> Yasi : {{age}} </p>
-    <button @click="SendToParent">  Veriyi Parent a  yolla</button>
+    <button @click="SendToParent">Send to Parent</button>
   </div>
 </template>
 <script>

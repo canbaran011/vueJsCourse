@@ -8,7 +8,7 @@
     <hr>
     <div class="row">
       <app-user-detail :age="age" @data="childData = $event " v-bind:name="title"></app-user-detail>
-      <app-user-edit @ageWasEdited="age = $event" :age="age"></app-user-edit>
+      <app-user-edit @ageWasEdited="age = $event" :age="age" :name2="titledit" ></app-user-edit>
     </div>
   </div>
 </template>
@@ -24,12 +24,14 @@
       return{
         title :"Mahmut",
         childData : "",
-        age : 20
+        age : 20,
+        titledit : "Zerrin"
       }
     },
     methods:{
       changeName(){
-        this.title = "CanBaran"
+        this.title = "CanBaran",
+        this.titledit= "Melisa"
       }
     }
   }

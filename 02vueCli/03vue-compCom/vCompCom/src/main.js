@@ -3,8 +3,11 @@ import App from './App.vue'
 
 export const eventBus = new Vue({
   methods :{
-    changeAge(){
+    data : {
       
+    },
+    changeAge(age){
+      this.$emit("ageWasEdited" ,age);
     }
   }
 });
