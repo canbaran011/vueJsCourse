@@ -9,6 +9,8 @@
   </div>
 </template>
 <script>
+import {eventBus} from '../main';
+
 export default {
 
   props : { //validate
@@ -28,7 +30,9 @@ export default {
     }
   },
   created(){
-    
+    eventBus.$on("ageWasEdited", (age) => {
+      this.age = age
+    })
   }
 
 
