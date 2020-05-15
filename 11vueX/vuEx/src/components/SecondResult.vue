@@ -4,6 +4,9 @@
     <!-- <p class="counter-container">Sayaç : {{ getDoubleCounter }}</p> -->
     <p class="counter-container">Sayaç : {{ double }}</p>
     <p class="counter-container">{{ stringC }}</p>
+    <input  type="text" v-model="value" > <!-- @input="setValue" :value="value"-->
+    <hr>
+    <p>  {{value}} </p>
   </div>
 </template>
 <script>
@@ -16,8 +19,19 @@ computed: {
   ...mapGetters({
     double : "getDoubleCounter",
     stringC : "stringCounter"
-  })
+  }),
+  value:{
+    get(){
+          return this.$store.getters.getValue;
+    },
+    set(value){
+          this.$store.dispatch("setValueData", value);
+
+    }
+    // return this.$store.getters.getValue;
+  }
 },
+
 
 
 };
