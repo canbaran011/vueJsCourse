@@ -4,7 +4,7 @@
     <hr>
     <router-view></router-view>
     <hr>
-    <button @click="navigateToHome" class="btn btn-success">Home Controller</button>
+    <button @click="navigateToHome" class="btn btn-success">Home Controller</button> <hr>
   </div>
 </template>
 <script>
