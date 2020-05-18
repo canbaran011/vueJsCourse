@@ -8,27 +8,37 @@
             <hr />
             <div class="form-group">
               <label>Ürün Adı</label>
-              <select class="form-control">
-                <option value="1">Ürün 1</option>
-                <option value="1">Ürün 2</option>
-                <option value="1">Ürün 3</option>
-                <option value="1">Ürün 4</option>
-                <option value="1">Ürün 5</option>
+              <select
+                selected
+                class="form-control"
+                v-model="selectedProduct"
+                @change="productSelected"
+              >
+                <option selected disabled>Lutfen urun seciniz</option>
+                <option
+                  :disabled="product.count == 0"
+                  :key="product.key"
+                  :value="product.key"
+                  v-for="product in getProducts"
+                >
+                  {{ product.title }}
+                </option>
               </select>
             </div>
-            <div class="card mb-2 border border-danger">
+            <div class="card mb-2 border border-danger" v-if="product !== null">
               <div class="card-body">
                 <div class="row">
                   <div class="col-12 text-center">
                     <div class="mb-3">
-                      <span class="badge badge-info">Stok : 4</span>
-                      <span class="badge badge-primary">Fiyat : 100,5 TL</span>
+                      <span class="badge badge-info"
+                        >Stok : {{ product.count }}</span
+                      >
+                      <span class="badge badge-primary"
+                        >Fiyat : {{ product.price | currency }}</span
+                      >
                     </div>
                     <p class="border border-warning p-2 text-secondary">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Assumenda debitis deleniti eos impedit iste numquam quos
-                      sit. Dignissimos, mollitia nemo officia reiciendis
-                      repellendus rerum velit. Eos libero magnam quas tempore!
+                      {{ product.description }}
                     </p>
                   </div>
                 </div>
@@ -37,13 +47,14 @@
             <div class="form-group">
               <label>Adet</label>
               <input
+                v-model="product_count"
                 type="text"
                 class="form-control"
                 placeholder="Ürün adetini giriniz.."
               />
             </div>
             <hr />
-            <button class="btn btn-primary">Kaydet</button>
+            <button :disabled="saveEnabled" class="btn btn-primary" @click="save">Kaydet</button>
           </div>
         </div>
       </div>
@@ -52,10 +63,73 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  data() {
+    return {
+      selectedProduct: null,
+      product: null,
+      product_count: null,
+      saveButtonClicked: false
+    };
+  },
+  computed: {
+    ...mapGetters(["getProducts"]),
+    saveEnabled(){
+      if(
+        this.selectedProduct !== null &&
+        this.product_count > 0 
+      ){
+        return false;
+      }else{
+        return true
+      }
+    },
+    isLoading() {
+      if (this.saveButtonClicked) {
+        return {
+          display: "block"
+        };
+      } else {
+        return {
+          display: "none"
+        };
+      }
+    }
+  },
+  methods: {
+    productSelected() {
+      console.log(this.selectedProduct);
+      this.product = this.$store.getters.getProduct(this.selectedProduct)[0]; //key i yolladik
+      // console.log(product[0]);
+    },
+    save() {
+      this.saveButtonClicked =true;
+      let product = {
+        key: this.selectedProduct,
+        count: this.product_count
+      };
+      this.$store.dispatch("sellProduct", product);
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if ((this.selectedProduct !== null || this.product_count > 0)&& !this.saveButtonClicked ) {
+      if (
+        confirm("Kaydedilmemis Degisikliklere ragmen cikmak istiyor musun?")
+      ) {
+        next();
+      } else {
+        next(false);
+      }
+    } else {
+      next();
+    }
+  }
+};
 </script>
 <style scoped>
-      .border-danger {
-            border-style: dashed !important;
-        }
+.border-danger {
+  border-style: dashed !important;
+}
 </style>
