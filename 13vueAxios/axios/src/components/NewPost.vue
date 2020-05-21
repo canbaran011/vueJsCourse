@@ -73,13 +73,13 @@ export default {
     onSubmit() {
       // console.log(this.post);
       axios
-        .post("https://vuejs-axios-blog-2b283.firebaseio.com/posts.json", {
+        .post("/posts.json", {
           ...this.post,
           updatedDate: new Date(),
         })
         .then((response) => {
           this.post = {
-            
+
           }
           console.log(response);
         })

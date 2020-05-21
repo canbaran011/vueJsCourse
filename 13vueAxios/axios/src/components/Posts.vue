@@ -17,6 +17,7 @@
 
 <script>
 import axios from "axios"
+// import customAxios from "../custom_axios"
 
 export default {
   data(){
@@ -26,7 +27,7 @@ export default {
     }
   },
   created(){
-    axios.get("https://vuejs-axios-blog-2b283.firebaseio.com/posts.json")
+    axios.get("/posts.json")
     .then(response => {
       let data = response.data;
       for(let key in data){
