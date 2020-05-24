@@ -27,12 +27,15 @@
   export default {
     methods: {
       logout() {
-      }
+        // alert("log out")
+  this.$store.dispatch("logout");
+
+}
     },
     computed: {
       logoutClass() {
         return {
-          'd-none': false
+          'd-none': !this.$store.getters.isAuthenticated
         }
       }
     }
