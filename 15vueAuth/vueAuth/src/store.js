@@ -26,17 +26,22 @@ const store = new Vuex.Store({
             if(token){
                 let expirationDate = localStorage.getItem("expirationDate")
                 let time = new Date().getTime()
-                let last = time+ expirationDate;
-                
-                if(time >= last){
-                    console.log("token has expired");
-                    dispatch("logout")
+             
+                if(time >= +expirationDate){
+                    console.log("TOKEN SURESI GECMIS");
+                    dispatch("logout");
                 }else{
                     commit("setToken", token);
-                    router.push("/")
+                    let timerSecond = +expirationDate - time;
+                    console.log(timerSecond);
+                    dispatch("setTimeoutTimer" , timerSecond);
+
+                    router.push("/");
                 }                
             }else{
-                router.push("/auth");
+                router.push("/auth").catch(err =>{
+                    console.log(err);
+                })
                 return false;
             }
 
@@ -55,11 +60,11 @@ const store = new Vuex.Store({
             commit("setToken" , response.data.idToken);
             localStorage.setItem("token" , response.data.idToken);
 
-// localStorage.setItem("expirationDate" , new Date().getTime() + response.data.expiresIn * 1000)
-            localStorage.setItem("expirationDate" , new Date().getTime() + 5000)
+localStorage.setItem("expirationDate" , new Date().getTime() + +response.data.expiresIn * 1000)
+            // localStorage.setItem("expirationDate" , new Date().getTime() + 10000)
 
-            // dispatch("setTimeoutTimer" , +response.data.expiresIn * 1000)
-            dispatch("setTimeoutTimer" ,  5000);
+            dispatch("setTimeoutTimer" , +response.data.expiresIn * 1000)
+            // dispatch("setTimeoutTimer" ,  10000);
 
           }).catch(err =>{
             console.log(err);
