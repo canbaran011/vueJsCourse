@@ -6,6 +6,7 @@
 
 <script>
 import lampStatus from "./lampStatus"
+
 export default {
     components : {
         "lamp-status" : lampStatus

@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <br> <br>
-        <button @click="selectedComponent='appMemory' " class="btn btn-sm btn-primary">appMemory</button>
-        <button @click="selectedComponent='appNewMemory' " class="btn btn-sm btn-primary">appNewMemory</button>
-        <button @click="selectedComponent='appAuthor' " class="btn btn-sm btn-primary">appAuthor</button>
+  <button @click="selectedComponent='appMemory' " class="btn btn-sm btn-primary">appMemory</button>
+  <button @click="selectedComponent='appNewMemory' " class="btn btn-sm btn-primary">appNewMemory</button>
+  <button @click="selectedComponent='appAuthor' " class="btn btn-sm btn-primary">appAuthor</button>
           <p>selected: {{selectedComponent}} </p>
           <br> <hr>
         <keep-alive>
