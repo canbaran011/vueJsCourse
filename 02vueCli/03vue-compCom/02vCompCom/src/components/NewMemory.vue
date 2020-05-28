@@ -4,7 +4,7 @@
        <h3>Yeni An </h3>
        <button class="btn btn-primary btn-sm" @click="counter++">Arttir</button>
        <p> {{counter}} </p>
-
+        <slot></slot> 
     </div>
   
 </template>

@@ -2,15 +2,18 @@
   <div>
     <transition-group name="slideContainer" mode="out-in">
       <component
-      key="mainComponent"
+        key="mainComponent"
         @activeComponentEvent="activeComponent = $event"
         :is="activeComponent"
       >
       </component>
+
       <canvas
-      v-show="activeComponent == 'app-celebrate'"
-      key="canvas" 
-      id="canvas"></canvas>
+        v-show="activeComponent == 'app-celebrate'"
+        key="canvas" 
+        id="canvas">
+      </canvas>
+
     </transition-group>
   </div>
 </template>
