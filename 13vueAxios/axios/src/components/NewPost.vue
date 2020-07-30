@@ -71,9 +71,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      // console.log(this.post);
-      axios
-        .post("/posts.json", {
+     // console.log(this.post);
+      axios.post("/posts.json", {
           ...this.post,
           updatedDate: new Date(),
         })
